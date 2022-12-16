@@ -90,7 +90,7 @@ async def main():
                 json.dump(total, file, indent=4, ensure_ascii=False)
                 print(string)
             else:
-                print("\nTrack not found.")
+                print("\n\nTrack not found.")
         for path in to_delete:
             os.remove(path)
         print("\nDone!")
