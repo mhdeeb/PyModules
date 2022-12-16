@@ -63,7 +63,7 @@ async def main():
         song = {}
         total = []
         async for result in recognize():
-            string = ""
+            string = "\n"
             if 'matches' in result and result['matches']:
                 stamp = ', '.join(map(str, set(
                     '{:0>2}:{:0>2}'.format(int(match['offset'] // 60), int(match['offset'] % 60)) for match in
@@ -73,27 +73,27 @@ async def main():
                     track = result['track']
                     if 'title' in track:
                         song['title'] = track['title']
-                        string += f"Title: {track['title']}\n"
+                        string += f"\nTitle: {track['title']}"
                     if 'subtitle' in track:
                         song['artist'] = track['subtitle']
-                        string += f"Artist: {track['subtitle']}\n"
+                        string += f"\nArtist: {track['subtitle']}"
                 if stamp:
                     song['time'] = stamp
-                    string += f"Time: {stamp}\n"
+                    string += f"\nTime: {stamp}"
                 if 'location' in result and 'accuracy' in result['location']:
                     song['accuracy'] = result['location']['accuracy'] * 10000
-                    string += f"Accuracy: {song['accuracy']}%\n"
-            if string:
+                    string += f"\nAccuracy: {song['accuracy']}%"
+            if not string.isspace():
                 file.seek(0)
                 total.append(song)
                 song = {}
                 json.dump(total, file, indent=4, ensure_ascii=False)
                 print(string)
             else:
-                print("Track not found.\n")
+                print("\nTrack not found.")
         for path in to_delete:
             os.remove(path)
-        print("Done!")
+        print("\nDone!")
 
 
 asyncio.run(main())
