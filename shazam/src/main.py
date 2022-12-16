@@ -40,7 +40,7 @@ async def recognize():
                 arg['path'] = f".temp_{time.time()}.wav"
             subprocess.check_call(['bin/yt-dlp.exe', '-x', '--audio-format', 'wav', arg['url'], '-o', arg['path']])
         if 'split' in arg:
-            if 'url' not in arg:
+            if not arg['path'].endswith('.wav'):
                 source = arg['path']
                 arg['path'] = f".temp_{time.time()}.wav"
                 subprocess.check_call(['bin/ffmpeg.exe', arg['path'], '-i', source, '-loglevel', 'error'])
