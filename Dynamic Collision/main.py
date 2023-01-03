@@ -21,7 +21,7 @@ if __name__ == '__main__':
     console = True  # Set to False to disable console output
     cart_bounce = False  # Set to True to enable bouncing off the cart
 
-    r = 50  # Ball radius
+    r = 25  # Ball radius
     d = 300  # Cart width / 2
     cart = Cart(origin=Vector2(center.x, height - 40), width=int(2 * d), height=2 * r, color="red")
     ball = Ball(center=Vector2(center.x, height - 2 * (20 + r) + r + 2), radius=r - 2, color="blue")
@@ -31,8 +31,8 @@ if __name__ == '__main__':
     cart.velocity = Vector2(0, 0)
     ball.velocity = Vector2(-v0, 0)
     ball.mass = 1
-    cart.mass = 5
-    e = 0.8  # Coefficient of restitution
+    cart.mass = 4
+    e = 0.9 # Coefficient of restitution
 
     # Collision Response Coefficients
     c1 = (ball.mass - e * cart.mass) / (ball.mass + cart.mass)
@@ -113,7 +113,7 @@ if __name__ == '__main__':
                                 True, "white"), (10, font_size * 6))
         pygame.display.set_caption(f"Dynamic Collision - {round(clock.get_fps(), 2)} fps")
 
-        clock.tick(120)
+        dt = clock.tick(120) / 1000
         pygame.display.update()
 
 pygame.quit()
