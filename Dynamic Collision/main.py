@@ -42,13 +42,16 @@ if __name__ == '__main__':
 
     t0 = perf_counter()  # t0
     collisions = 0  # Collision Counter
+    previous_relative_distance = 0
 
     while running:
         window.fill('black')
 
+        relative_distance_x = (ball.points[0] - cart.points[0]).x
+
         # Check for Collision
-        if not ball.radius <= (ball.points[0] - cart.points[0]).x <= cart.width - ball.radius:
-            if (ball.points[0] - cart.points[0]).x <= ball.radius:
+        if not ball.radius <= relative_distance_x <= cart.width - ball.radius:
+            if relative_distance_x <= ball.radius:
                 site = 'A'
                 ball.points[0].x = cart.points[0].x + ball.radius
             else:
@@ -71,6 +74,17 @@ if __name__ == '__main__':
                     f"{'Total Momentum:':<23}{ball.momentum() + cart.momentum():>10.2f}\n"
                     f"Total Kinetic Energy:{ball.kinetic_energy() + cart.kinetic_energy():>24.2f}"
                 )
+        elif console and (relative_distance_x - cart.width / 2) * previous_relative_distance < 0:
+            print(
+                f"\nBall Passed Center:\n"
+                f"Time: {perf_counter() - t0:>5.2f}s\n"
+                f"{'Ball Velocity:':<23}{ball.velocity:>10.2f}\n"
+                f"{'Cart Velocity:':<23}{cart.velocity:>10.2f}\n"
+                f"{'Total Momentum:':<23}{ball.momentum() + cart.momentum():>10.2f}\n"
+                f"Total Kinetic Energy:{ball.kinetic_energy() + cart.kinetic_energy():>24.2f}"
+            )
+
+        previous_relative_distance = (relative_distance_x - cart.width / 2)
 
         if cart_bounce:
             if cart.points[0].x <= 1:
