@@ -32,7 +32,7 @@ if __name__ == '__main__':
     ball.velocity = Vector2(-v0, 0)
     ball.mass = 1
     cart.mass = 4
-    e = 0.9 # Coefficient of restitution
+    e = 0.9  # Coefficient of restitution
 
     # Collision Response Coefficients
     c1 = (ball.mass - e * cart.mass) / (ball.mass + cart.mass)
