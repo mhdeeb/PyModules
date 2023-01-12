@@ -2,3 +2,4 @@
 venv
 /shazam/results.json
 /shazam/bin/ffmpeg.exe
+__pycache__/
